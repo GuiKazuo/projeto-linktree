@@ -1,0 +1,200 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-color: white; /* Usar essa variável para substituir onde está branco */
+  --bg-url: url(./assets/bg-escuro.jpg);
+  --stroke-color: rgba(255, 255, 255, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.05);
+  --surface-color-hover: rgba(0, 0, 0, 0.02);
+  --highlight-color: rgba(255, 255, 255, 0.2);
+  --switch-bg-url: url(./assets/MoonStars.svg);
+}
+
+.light {
+  --text-color: black;
+  --bg-url: url(./assets/bg-claro.jpg);
+  --stroke-color: rgba(0, 0, 0, 0.5);
+  --surface-color: rgba(0, 0, 0, 0.05);
+  --surface-color-hover: rgba(0, 0, 0, 0.02);
+  --highlight-color: rgba(0, 0, 0, 0.1);
+  --switch-bg-url: url(./assets/Sun.svg);
+}
+
+body {
+  /*
+  background-image: url(./assets/bg-mobile.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  */
+
+  /* backgound: color image repeat position/size */
+  background: var(--bg-url) no-repeat top center/cover;
+  height: 100vh;
+}
+
+body * {
+  font-family: "Inter", sans-serif;
+  color: var(--text-color);
+}
+
+#container {
+  width: 100%;
+  max-width: 588px;
+  /* height: 712px; Geralmente não precisa colocar altura, ele acompanha o tamanho do conteúdo. */
+  margin: 56px auto 0px; /* margin: 56px(top) auto(right e left) 0px(bottom) */
+  padding: 0 24px;
+}
+
+/* profile */
+#profile {
+  text-align: center; /* O text-align: center; no pai (#profile) da imagem (#profile img), NÃO funciona se a imagem for bloco (#profile img{display: block; }) */
+  padding: 24px;
+}
+
+#profile img {
+  /* Opção para centralizar a imagem: display: block; + margin: auto; Pois a imagem no CSS tem por padrão o display inline, transformando em block, é possível utilizar o recurso margin: auto. */
+  width: 112px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+#profile p {
+  font-weight: 500;
+  /* font-size: 16px; Por padrão, os navegadores já tem o font-size de 16px. */
+  line-height: 24px;
+  margin-top: 8px;
+}
+
+/* switch */
+#switch {
+  position: relative; /* Tudo que estiver dentro do switch em absoluto, vai ser relativo a ele, ao espaço dele e não a página inteira */
+  width: 64px;
+  margin: 4px auto;
+}
+
+#switch button {
+  width: 32px;
+  height: 32px;
+  background: white var(--switch-bg-url) no-repeat center;
+  border: 0;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 1;
+  transform: translateY(-50%);
+  animation: slide-back 0.2s;
+}
+
+.light #switch button {
+  animation: slide-in 0.2s forwards;
+}
+
+#switch button:hover {
+  outline: 8px solid var(--highlight-color);
+}
+
+#switch span {
+  display: block;
+  width: 64px;
+  height: 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 9999px;
+}
+
+/* links */
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 0;
+}
+
+ul li a {
+  display: flex;
+  /* flex-direction: row; não faz sentido, por padrão, o display: flex; já é row */
+  align-items: center; /* imaginar uma linha no meio da caixa, na horizontal, alinhou no centro da linha horizontal */
+  justify-content: center; /* imaginar uma linha no meio da caixa, na vertical, alinhou no centro da linha vertical */
+  padding: 16px 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(
+    4px
+  ); /* No navegador Safaro, só aceita se tiver o webkit na frente */
+  text-decoration: none;
+  font-weight: 500; /* A letra bold, por padrão, o weight é 400 */
+  transition: background 0.2s;
+}
+/* pseudo-selector */
+ul li a:hover {
+  background: var(--surface-color-hover);
+  border: 1.5px solid var(--text-color);
+}
+
+#social-links {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+  font-size: 24px;
+}
+
+#social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: background 0.2s;
+  border-radius: 50%;
+}
+
+#social-links a:hover {
+  background: var(--highlight-color);
+}
+
+footer {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* media queries */
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(./assets/bg-escuro.jpg);
+  }
+
+  .light {
+    --bg-url: url(./assets/bg-claro.jpg);
+  }
+}
+
+/* animation */
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes slide-back {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 0;
+  }
+}
